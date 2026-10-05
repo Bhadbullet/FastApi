@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# from app.routers.auth_router import router as auth_router
-# from app.routers.user_router import router as user_router
+from app.routers.auth_router import router as auth_router
+from app.routers.user_router import router as user_router
+
 
 
 API_PREFIX = "/api/v1"
@@ -30,5 +31,5 @@ def home():
     }
 
 
-# app.include_router(auth_router, prefix=API_PREFIX)
-# app.include_router(user_router, prefix=API_PREFIX)
+app.include_router(auth_router, prefix=API_PREFIX)
+app.include_router(user_router, prefix=API_PREFIX)

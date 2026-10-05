@@ -1,3 +1,4 @@
+from uuid import UUID
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
@@ -152,3 +153,17 @@ def hash_otp(otp: str) -> str:
 
 def verify_otp_hash(otp: str, otp_hash: str) -> bool:
     return verify_password(otp, otp_hash)  
+
+
+def get_user_id_from_token(token: str) -> UUID:
+    payload = decode_access_token(token)
+
+    if not payload:
+        raise ValueError("Invalid or expired access token")
+
+    user_id = payload.get("sub")
+
+    if not user_id:
+        raise ValueError("Invalid access token")
+
+    return UUID(user_id)
